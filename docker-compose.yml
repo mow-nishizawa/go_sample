@@ -1,0 +1,29 @@
+version: '3.7'
+
+services:
+  app:
+    container_name: sample
+    build: 
+      dockerfile: ./app/Dockerfile
+    tty: true
+    volumes: 
+      - ./app:/var/www/app
+    ports:
+      - 8080:8080
+    depends_on:
+      - db
+
+  db:
+    image: mysql:8.0
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: sample
+      MYSQL_USER: sample
+      MYSQL_PASSWORD: password
+      TZ: 'Azia/Tokyo'
+    volumes:
+      - ./mysql/data:/var/lib/mysql
+      - ./mysql/my.cnf:/etc/mysql/conf.d/my.cnf
+    ports:
+      - 3306:3306

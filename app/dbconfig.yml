@@ -1,0 +1,5 @@
+development:
+  dialect: mysql
+  datasource: mysql:password@tcp(mysql)/sqmple?parseTime=true
+  dir: migrate/sqls
+  table: migrations
