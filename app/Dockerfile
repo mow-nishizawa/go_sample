@@ -12,8 +12,6 @@ ENV GO111MODULE=on
 
 RUN apk add build-base
 
-RUN go install github.com/rubenv/sql-migrate/...@latest
-
 EXPOSE 8080
 
 # Airをインストールし、コンテナ起動時に実行する

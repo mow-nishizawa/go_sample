@@ -15,12 +15,13 @@ services:
 
   db:
     image: mysql:8.0
-    container_name: mysql
+    container_name: db_mysql
+    hostname: mysql
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: sample
       MYSQL_USER: sample
-      MYSQL_PASSWORD: password
+      MYSQL_PASSWORD: pass
       TZ: 'Azia/Tokyo'
     volumes:
       - ./mysql/data:/var/lib/mysql
