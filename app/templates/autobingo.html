@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>autobingo</title>
+  </head>
+  <body>
+    <h1><a style="text-decoration:none;" href="http://localhost:8080/autobingo">ビンゴゲーム</a></h1>
+    {{ if .PlayerList }}
+    {{ if .DrawNumber }}
+    <div>{{ .DrawNumber }}が出ました！</div>
+    {{ end }}
+    {{ range .PlayerList }}
+    {{ if .Message }}
+    <div style="color: red;">{{ .Message }}</div>
+    {{ end }}
+    {{ end }}
+    <div>
+      {{ range .PlayerList }}
+      <div>{{ .Name }}</div>
+      <table class="bingo-card" border="1" cellpadding="15" style="border-collapse: collapse">
+        {{ range .CardList }}
+        {{ $Card := . }}
+        {{ range $index, $value := $Card }}
+        {{ if eq $index 0 }}<tr>{{ end }}
+            {{ if or (eq "FREE" $value.CardNumber) (eq 1 $value.Hit) }}
+            <td align="center" style="background-color: yellow;">{{ $value.CardNumber }}</td>
+            {{ else }}
+            <td align="center">{{ $value.CardNumber }}</td>
+            {{ end }}
+        {{ if eq $index 4 }}</tr>{{ end }}
+        {{ end }}
+        {{ end }}
+      </table>
+      {{ end }}
+    </div>
+    {{ if .Terminate }}
+    <form action="http://localhost:8080/autobingo" method="GET">
+      <div>
+        <input type="submit" value="最初からやり直す" />
+      </div>
+    </form>
+    {{ else }}
+    <form action="http://localhost:8080/autobingo" method="POST">
+      <div>
+        <input type="submit" value="次の数字を引く" />
+      </div>
+    </form>
+    {{ end }}
+    {{ else }}
+    <div>
+      <form action="http://localhost:8080/autobingo" method="GET">
+        <div>
+          <div>参加者の名前をスペース区切りで入力してください。</div>
+          <div>
+            <input type="text" name="players" />
+          </div>
+        </div>
+        <div>
+          <input type="submit" value="ビンゴ開始" />
+        </div>
+      </form>
+    </div>
+    {{ end }}
+  </body>
+</html>

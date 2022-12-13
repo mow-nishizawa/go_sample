@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Request Parse</title>
+  </head>
+  <body>
+    <div>
+      <form action="http://localhost:8080/request_parse" method="GET">
+        <div>
+          <label for="apple">りんご</label>
+          <input type="number" name="apple_num" />個
+        </div>
+        <div>
+          <label for="orange">みかん</label>
+          <input type="number" name="orange_num" />個
+        </div>
+        <div>
+          <label for="grape">ぶどう</label>
+          <input type="number" name="grape_num" />個
+        </div>
+        <div>
+          <label for="peach">もも</label>
+          <input type="number" name="peach_num" />個
+        </div>
+        <div>
+          <input type="submit" value="金額計算" />
+        </div>
+      </form>
+    </div>
+    {{ if . }}
+    <div>
+      <table>
+        <tr>
+          <th>果物</th>
+          <th>金額</th>
+          <th>個数</th>
+          <th>個/円</th>
+        </tr>
+        {{ range .Fruits }}
+        <tr>
+          <td>{{ .Name }}</td>
+          <td>{{ .Money }}</td>
+          <td>{{ .Quantity }}</td>
+          <td>{{ .QuantityPerYen }}</td>
+        </tr>
+        {{ end }}
+      </table>
+    </div>
+    <div>
+        <p>合計: {{ .Total }}円</p>
+    </div>
+    {{ end }}
+  </body>
+</html>
